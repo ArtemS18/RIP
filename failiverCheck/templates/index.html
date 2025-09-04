@@ -1,0 +1,27 @@
+<html lang="en">
+    <header>
+        <a href="/hello"><img src="/static/svg/home.svg" alt="home"></a>
+        <link rel="stylesheet" href="/static/styles/index_style.css">
+    </header>
+    <form action="/hello" method="GET">
+        <input type="text" name="query" placeholder="Введите запрос" value="{{ .query }}">
+        <button type="submit">Найти</button>
+    <h1>
+        Hello world time now
+    </h1>
+    <div class="component-container">
+    {{ range .components }}
+        <div class="component">
+            <div id="img-icon">
+                <img src="/static/svg/database.svg" alt="icon"></a>
+            </div>
+            <h1> {{ .Title }}</h1>
+            <div class="buttons">
+                <a href="" class="button add"> +Добавить  </a>
+                <a href="/component/{{ .ID }}" class="button more"> Подробнее...  </a>
+            </div>
+        </div>
+    {{ end }}
+    </div>
+
+</html>
