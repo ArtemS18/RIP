@@ -1,27 +1,49 @@
 <html lang="en">
     <header>
-        <a href="/hello"><img src="/static/svg/home.svg" alt="home"></a>
+        <!-- <a href="/hello"><img src="/static/svg/home.svg" alt="home"></a> -->
         <link rel="stylesheet" href="/static/styles/index_style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     </header>
-    <form action="/hello" method="GET">
-        <input type="text" name="query" placeholder="Введите запрос" value="{{ .query }}">
-        <button type="submit">Найти</button>
-    <h1>
-        Hello world time now
-    </h1>
-    <div class="component-container">
-    {{ range .components }}
-        <div class="component">
-            <div id="img-icon">
-                <img src="/static/svg/database.svg" alt="icon"></a>
-            </div>
-            <h1> {{ .Title }}</h1>
-            <div class="buttons">
-                <a href="" class="button add"> +Добавить  </a>
-                <a href="/component/{{ .ID }}" class="button more"> Подробнее...  </a>
+    <body>
+        <div class="bar">
+            <a href="/hello"> FailiverCheck</a>
+            <!-- <span class="nav">
+                <a href="/hello">Компоненты</a>
+                <a href="">Заявки</a>
+            </span> -->
+
+        </div>
+        <div class="page">
+            <h1> Компоненты системы</h1>
+            <form action="/hello?addComponent={{.data.CountQuery}}" method="GET">
+                <input type="text" name="search" placeholder="Найти компоненты" value="{{ .data.SearchQuery }}">
+                <button class = "button search" type="submit"><strong>Поиск</strong></button>
+            </form>
+            <div class="component-container">
+            {{ range .data.Components}}
+                <div class="component">
+                    <div id="img-icon">
+                        <img src= "http://localhost:9000/failivercheck/svg/{{.Img}}" alt="icon"/>
+                    </div>
+                    <p> {{ .Title }}</p>
+                    <div class="buttons">
+                        <a href="/hello?search={{$.data.SearchQuery}}&addComponent={{$.data.CountQuery}}" class="button add"> +Добавить  </a>
+                        <a href="/component/{{ .ID }}" class="button more"> Подробнее...  </a>
+                    </div>
+                </div>
+            {{ end }}
             </div>
         </div>
-    {{ end }}
-    </div>
+        <div class="bar-chat">
+            <a href="/order">
+                <img src= "http://localhost:9000/failivercheck/svg/bar-chat.svg" alt="analitics"/>
+            </a>
+            {{if .data.CurrentCount}}
+            <div>{{.data.CurrentCount}}</div>
+            {{end}}
+        </div>
+    </body>
 
 </html>

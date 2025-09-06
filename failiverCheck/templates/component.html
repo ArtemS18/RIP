@@ -2,11 +2,65 @@
 <header>
 
     <link rel="stylesheet" href="/static/styles/component_slyle.css">
-    <h1>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- <h1>
         <a href="/hello"><img src="/static/svg/home.svg" alt="home"></a>
-        <!--Простой хедер, чтобы возвращаться на главную страницу-->
-    </h1>
+    </h1> -->
 </header>
-    <h1>Информация о заказе №{{ .component.ID }}</h1>
-    <h2>Заголовок: {{ .component.Title }}</h2>
+    <body>
+        <div class="bar">
+            <a href="/hello"> FailiverCheck</a>
+            <!-- <span class="nav">
+                <a href="/hello">Компоненты</a>
+                <a href="">Заявки</a>
+            </span> -->
+
+        </div>
+        <div class="page">
+            <div class="component__name">
+                <h1>
+                <a class="nav" href="/hello">Компоненты /</a>
+                <span id="nav-name">{{ .component.Title }}</span>
+                </h1>
+               
+            </div>
+            <div class="component card">
+                <span id="img-icon">
+                    <img src= "http://localhost:9000/failivercheck/svg/{{.component.Img}}" alt="icon"/>
+                </span>
+                <span>
+                    <h1>{{ .component.Title }}</h1>
+                </span>
+            </div>
+            <div class="component__options">
+                <div class="component settings opt">
+                    <div class="title">
+                        <h3> Характеристики</h3>
+                    </div>
+                    <ul id="component-body">
+                        <li>Tип:</li> <div>{{.component.Type}} </div>
+                        <li>Доступность:</li> <div>{{.component.Available}}% </div>
+                        <!-- <li>Кол-во реплик: </li> <div>{{.component.Replication}} шт.</div> -->
+                        <li>MTBF*:</li> <div>{{.component.MTBF}} ч.</div>
+                        <li>MTTR**:</li> <div>{{.component.MTTR}} ч.</div>
+                    </ul>
+                    <div class="description">
+                        <p> * - среднее время работы до отказа</p>
+                        <p>** - среднее время необходимое для восстановления</p>
+                    </div>
+                </div>
+                <div class="component settings">
+                    <div class="title">
+                        <h3> Описание</h3>
+                    </div>
+                    <p id="desctiption">
+                        {{.component.Description}}
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </body>
 </html> 

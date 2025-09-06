@@ -1,0 +1,56 @@
+<html lang="en">
+    <header>
+        <!-- <a href="/hello"><img src="/static/svg/home.svg" alt="home"></a> -->
+        <link rel="stylesheet" href="/static/styles/app_style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    </header>
+    <body>
+        <div class="bar">
+            <a href="/hello"> FailiverCheck</a>
+            <!-- <span class="nav">
+                <a href="/hello">Компоненты</a>
+                <a href="">Заявки</a>
+            </span> -->
+
+        </div>
+        <div class="page">
+            <h1> Название системы</h1>
+                <div class="form-containeer">
+                    <input type="text" name="name" placeholder="Придумайте название" value="">
+                    <button class="button add"> Сохранить</button>
+                </div>
+            <h1> Составление заявки</h1>
+            <div class="component-container">
+            {{ range .components}}
+                
+                    <div class="component">
+                        <div class="title">
+                            <span id="img-icon">
+                                <img src= "http://localhost:9000/failivercheck/svg/{{.Img}}" alt="icon"/>
+                            </span>
+                            <span > <a href="/component/{{.ID}}">{{ .Title }}</a></span>
+                        </div>
+                        <div class="left-container">
+                            <div> 
+                                <div> Кол-во репликаций</div>
+                                <input type="number" name="count" placeholder="" value="1">
+                            </div>
+                            <a href="" class="button delete trash"> <img src="http://localhost:9000/failivercheck/svg/trash.svg"></img></a>
+                        </div>
+                    </div>
+            {{ end }}
+            </div>
+            <div>
+                <h1> Расчет доступности системы</h1>
+                <p><span id="available">95.75%</span> <span>от времени использования</span> </p>
+            </div>
+            <div class="buttons">
+                <button class="button add"> Создать заявку</button>
+                <button class="button delete"> Удалить заявку</button>
+            </div>
+        </div>
+    </body>
+
+</html>

@@ -4,7 +4,6 @@ import (
 	"failiverCheck/internal/app/repository"
 	"net/http"
 	"strconv"
-	"time"
 
 	"github.com/sirupsen/logrus"
 
@@ -15,8 +14,27 @@ type Handler struct {
 	Repository *repository.Repository
 }
 
+type TemplateData struct {
+	Components   []repository.Component
+	CountQuery   int
+	CurrentCount int
+	SearchQuery  string
+}
+
 func NewHandler(r *repository.Repository) *Handler {
 	return &Handler{r}
+}
+
+func (h *Handler) GetApplication(ctx *gin.Context) {
+
+	components, err := h.Repository.GetComponentsInApplication()
+	if err != nil {
+		logrus.Error(err)
+	}
+
+	ctx.HTML(http.StatusOK, "application.html", gin.H{
+		"components": components,
+	})
 }
 
 func (h *Handler) GetComponent(ctx *gin.Context) {
@@ -40,7 +58,16 @@ func (h *Handler) GetComponents(ctx *gin.Context) {
 	var orders []repository.Component
 	var err error
 
-	searchQuery := ctx.Query("query")
+	searchQuery := ctx.Query("search")
+	sum := ctx.Query("addComponent")
+	count := 0
+	if sum != "" {
+		count, err = strconv.Atoi(sum)
+		if err != nil {
+			count = 0
+		}
+	}
+
 	logrus.Info(searchQuery)
 	if searchQuery == "" {
 		orders, err = h.Repository.GetComponents()
@@ -55,8 +82,10 @@ func (h *Handler) GetComponents(ctx *gin.Context) {
 	}
 
 	ctx.HTML(http.StatusOK, "index.html", gin.H{
-		"time":       time.Now().Format("15:04:05"),
-		"components": orders,
-		"query":      searchQuery,
+		"data": TemplateData{
+			Components:   orders,
+			SearchQuery:  searchQuery,
+			CountQuery:   count + 1,
+			CurrentCount: count},
 	})
 }
