@@ -50,6 +50,14 @@ services:
       - minio2
       - minio3
       - minio4
+  server:
+    build: ./failiverCheck/
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./failiverCheck:/app/
+    command: "/app/app" 
+    
 
 volumes: 
   data1-1:
