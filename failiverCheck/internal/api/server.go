@@ -29,6 +29,7 @@ func StartServer() {
 	r := gin.Default()
 
 	r.LoadHTMLGlob("templates/*")
+
 	r.Static("/static", "./resources")
 
 	r.GET("/hello", h.GetComponents)
