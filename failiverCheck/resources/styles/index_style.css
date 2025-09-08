@@ -56,8 +56,12 @@ header img {
     background-color: #212830;
     border-top-left-radius: 20px; 
     border-bottom-left-radius: 20px;
-    color: #55667B;
+    color: #D1D7E1;
     border: 2px solid #404C5B;
+}
+
+input::placeholder {
+  color: #404C5B;  
 }
 
 input{

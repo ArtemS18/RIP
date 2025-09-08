@@ -62,10 +62,12 @@ input:focus {
     padding-left: 15px;
     background-color: #212830;
     border-radius: 20px; 
-    color: #55667B;
+    color: #D1D7E1;
     border: 2px solid #404C5B;
 }
-
+input::placeholder {
+  color: #404C5B;  
+}
 .form-containeer{
     margin-left: 40px;
     height: auto;
@@ -97,7 +99,7 @@ input:focus {
     flex-direction: row;
     justify-content: space-between; 
     border: 2px solid #404C5B;
-    font-size: 1em;
+    font-size: 1.1em;
     color: #D1D7E1;
     gap:20px
     
@@ -185,6 +187,11 @@ p{
   background-color: #f33c42;
   color:#0D1117;
   transform: scale(1.1);
+}
+
+.count-replication{
+    color: #d1d7e177;
+    font-size: 0.9em;
 }
 
 .button.delete.trash:hover {
