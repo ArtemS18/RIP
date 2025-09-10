@@ -32,9 +32,9 @@ func StartServer() {
 
 	r.Static("/static", "./resources")
 
-	r.GET("/hello", h.GetComponents)
-	r.GET("/component/:id", h.GetComponent)
-	r.GET("/order", h.GetApplication)
+	r.GET("/components", h.GetComponents)
+	r.GET("/components/:id", h.GetComponent)
+	r.GET("/availability_calculation/:id", h.GetApplication)
 
 	r.Run()
 	log.Println("Server down")

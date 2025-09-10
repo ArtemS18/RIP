@@ -1,6 +1,6 @@
 <html lang="en">
     <header>
-        <!-- <a href="/hello"><img src="/static/svg/home.svg" alt="home"></a> -->
+        <!-- <a href="/components"><img src="/static/svg/home.svg" alt="home"></a> -->
         <link rel="stylesheet" href="/static/styles/app_style.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -8,19 +8,18 @@
     </header>
     <body>
         <div class="bar">
-            <a href="/hello"> FailiverCheck</a>
+            <a href="/components"> FailiverCheck</a>
             <!-- <span class="nav">
-                <a href="/hello">Компоненты</a>
+                <a href="/components">Компоненты</a>
                 <a href="">Заявки</a>
             </span> -->
 
         </div>
         <div class="page">
-            <h1> Название системы</h1>
-                <div class="form-containeer">
-                    <input type="text" name="name" placeholder="Придумайте название" value="">
-                    <button type="submit" class="button add"> Сохранить</button>
-                </div>
+            <div>
+                <h1> Расчет доступности системы</h1>
+                <p><span id="available">95.75%</span> <span>от времени использования</span> </p>
+            </div>
             <h1> Составление заявки</h1>
             <div class="component-container">
             {{ range .components}}
@@ -28,24 +27,25 @@
                     <div class="component">
                         <div class="title">
                             <span id="img-icon">
-                                <img src= "http://localhost:9000/failivercheck/svg/{{.Img}}" alt="icon"/>
+                                <img src= "{{.Component.Img}}" alt="icon"/>
                             </span>
-                            <span > <a href="/component/{{.ID}}">{{ .Title }}</a></span>
+                            <span > <a href="/components/{{.Component.ID}}">{{ .Title }}</a></span>
                         </div>
                         <div class="left-container">
                             <div> 
                                 <div class="count-replication"> Кол-во репликаций</div>
-                                <input type="number" name="count" placeholder="шт." value="1">
+                                <input type="number" name="count" placeholder="шт." value="{.ReplicationCount}">
                             </div>
                             <a href="" class="button delete trash"> <img src="http://localhost:9000/failivercheck/svg/trash.svg"></img></a>
                         </div>
                     </div>
             {{ end }}
             </div>
-            <div>
-                <h1> Расчет доступности системы</h1>
-                <p><span id="available">95.75%</span> <span>от времени использования</span> </p>
-            </div>
+             <h1> Название системы</h1>
+                <div class="form-containeer">
+                    <input type="text" name="name" placeholder="Придумайте название" value=".name">
+                    <button type="submit" class="button add"> Сохранить</button>
+                </div>
             <div class="buttons">
                 <button class="button add"> Создать заявку</button>
                 <button class="button delete"> Удалить заявку</button>

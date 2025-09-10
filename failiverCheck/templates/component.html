@@ -6,29 +6,27 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- <h1>
-        <a href="/hello"><img src="/static/svg/home.svg" alt="home"></a>
+        <a href="/components"><img src="/static/svg/home.svg" alt="home"></a>
     </h1> -->
 </header>
     <body>
         <div class="bar">
-            <a href="/hello"> FailiverCheck</a>
+            <a href="/components"> FailiverCheck</a>
             <!-- <span class="nav">
-                <a href="/hello">Компоненты</a>
+                <a href="/components">Компоненты</a>
                 <a href="">Заявки</a>
             </span> -->
-
         </div>
         <div class="page">
-            <div class="component__name">
+            <!-- <div class="component__name">
                 <h1>
-                <a class="nav" href="/hello">Компоненты /</a>
+                <a class="nav" href="/components">Компоненты /</a>
                 <span id="nav-name">{{ .component.Title }}</span>
-                </h1>
-               
-            </div>
+                </h1> 
+            </div> -->
             <div class="component card">
                 <span id="img-icon">
-                    <img src= "http://localhost:9000/failivercheck/svg/{{.component.Img}}" alt="icon"/>
+                    <img src= "{{.component.Img}}" alt="icon"/>
                 </span>
                 <span>
                     <h1>{{ .component.Title }}</h1>

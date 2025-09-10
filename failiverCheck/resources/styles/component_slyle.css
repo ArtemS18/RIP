@@ -72,6 +72,7 @@ header img {
     max-height: 197px;
     align-items: center;
     font-size: 1em;
+    margin-top: 20px;
 }
 .component.settings.opt{
     max-width: 440px;

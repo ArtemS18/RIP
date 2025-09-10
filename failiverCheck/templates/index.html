@@ -1,6 +1,6 @@
 <html lang="en">
     <header>
-        <!-- <a href="/hello"><img src="/static/svg/home.svg" alt="home"></a> -->
+        <!-- <a href="/components"><img src="/static/svg/home.svg" alt="home"></a> -->
         <link rel="stylesheet" href="/static/styles/index_style.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -8,36 +8,35 @@
     </header>
     <body>
         <div class="bar">
-            <a href="/hello"> FailiverCheck</a>
+            <a href="/components"> FailiverCheck</a>
             <!-- <span class="nav">
-                <a href="/hello">Компоненты</a>
+                <a href="/components">Компоненты</a>
                 <a href="">Заявки</a>
             </span> -->
-
         </div>
         <div class="page">
             <h1> Компоненты системы</h1>
-            <form action="/hello?addComponent={{.data.CountQuery}}" method="GET">
-                <input type="text" name="search" placeholder="Найти компоненты" value="{{ .data.SearchQuery }}">
+            <form action="/components?addComponent={{.data.CountQuery}}" method="GET">
+                <input type="text" name="searchComponents" placeholder="Найти компоненты" value="{{ .data.SearchQuery }}">
                 <button class = "button search" type="submit"><strong>Поиск</strong></button>
             </form>
             <div class="component-container">
             {{ range .data.Components}}
                 <div class="component">
                     <div id="img-icon">
-                        <img src= "http://localhost:9000/failivercheck/svg/{{.Img}}" alt="icon"/>
+                        <img src= "{{.Img}}" alt="icon"/>
                     </div>
                     <p> {{ .Title }}</p>
                     <div class="buttons">
-                        <a href="/hello?search={{$.data.SearchQuery}}&addComponent={{$.data.CountQuery}}" class="button add"> +Добавить  </a>
-                        <a href="/component/{{ .ID }}" class="button more"> Подробнее...  </a>
+                        <a href="/components?search={{$.data.SearchQuery}}&addComponent={{.ID}}" class="button add"> +Добавить  </a>
+                        <a href="/components/{{ .ID }}" class="button more"> Подробнее...  </a>
                     </div>
                 </div>
             {{ end }}
             </div>
         </div>
         <div class="bar-chat">
-            <a href="/order">
+            <a href="/availability_calculation/{{.data.OrderId}}">
                 <img src= "http://localhost:9000/failivercheck/svg/bar-chat.svg" alt="analitics"/>
             </a>
             {{if .data.CurrentCount}}

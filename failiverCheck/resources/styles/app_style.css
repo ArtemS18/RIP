@@ -73,6 +73,7 @@ input::placeholder {
     height: auto;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 40px;
 }
 
 .form-containeer input{
@@ -88,7 +89,9 @@ input::placeholder {
     flex-wrap: wrap;
     row-gap: 30px;
 }
-
+.button:active{
+    filter: brightness(2);
+}
 .component{
     max-width: 1000px;
     max-height: 200px;
@@ -125,8 +128,7 @@ a{
 .title{
     align-items: center;
     display: flex;
-
-
+    gap: 10px;
 }
 p{
     margin-left: 40px;
@@ -167,6 +169,7 @@ p{
 .left-container{
     display: flex;
     max-width: 300px;
+    gap: 10px
     
 }
 .left-container input{

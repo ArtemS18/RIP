@@ -19,6 +19,7 @@ type TemplateData struct {
 	CountQuery   int
 	CurrentCount int
 	SearchQuery  string
+	OrderId      int
 }
 
 func NewHandler(r *repository.Repository) *Handler {
@@ -26,14 +27,20 @@ func NewHandler(r *repository.Repository) *Handler {
 }
 
 func (h *Handler) GetApplication(ctx *gin.Context) {
-
-	components, err := h.Repository.GetComponentsInApplication()
+	strId := ctx.Param("id")
+	id, err := strconv.Atoi(strId)
+	if err != nil {
+		logrus.Error(err)
+	}
+	calculation, err := h.Repository.GetComponentsInApplication(id)
+	componentsInCalc := calculation.Components
 	if err != nil {
 		logrus.Error(err)
 	}
 
 	ctx.HTML(http.StatusOK, "application.html", gin.H{
-		"components": components,
+		"components": componentsInCalc,
+		"name":       calculation.Name,
 	})
 }
 
@@ -58,15 +65,11 @@ func (h *Handler) GetComponents(ctx *gin.Context) {
 	var orders []repository.Component
 	var err error
 
-	searchQuery := ctx.Query("search")
-	sum := ctx.Query("addComponent")
-	count := 0
-	if sum != "" {
-		count, err = strconv.Atoi(sum)
-		if err != nil {
-			count = 0
-		}
-	}
+	searchQuery := ctx.Query("searchComponents")
+	orderId := 1
+	calculation, _ := h.Repository.GetComponentsInApplication(1)
+	components := calculation.Components
+	count := len(components)
 
 	logrus.Info(searchQuery)
 	if searchQuery == "" {
@@ -85,7 +88,8 @@ func (h *Handler) GetComponents(ctx *gin.Context) {
 		"data": TemplateData{
 			Components:   orders,
 			SearchQuery:  searchQuery,
-			CountQuery:   count + 1,
-			CurrentCount: count},
+			CurrentCount: count,
+			OrderId:      orderId,
+		},
 	})
 }

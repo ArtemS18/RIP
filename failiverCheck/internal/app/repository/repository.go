@@ -20,6 +20,21 @@ type Component struct {
 	Description string
 }
 
+// type AvailabilityCalculation struct {
+// 	ID   int
+// 	Name string
+// }
+
+type CalculationToComponent struct {
+	Component        Component
+	ReplicationCount int
+}
+
+type Calculation struct {
+	Name       string
+	Components []CalculationToComponent
+}
+
 var components = []Component{
 	{
 		ID:          1,
@@ -28,7 +43,7 @@ var components = []Component{
 		MTBF:        8760,
 		MTTR:        2,
 		Available:   0.999771,
-		Img:         "database.svg",
+		Img:         "http://localhost:9000/failivercheck/svg/database.svg",
 		Description: "Один экземпляр сервера, содержащий базу данных.  Подвержен простоям при отказах и обслуживании.",
 	},
 	{
@@ -38,7 +53,7 @@ var components = []Component{
 		MTBF:        43800,
 		MTTR:        4,
 		Available:   0.999909,
-		Img:         "loader.svg",
+		Img:         "http://localhost:9000/failivercheck/svg/loader.svg",
 		Description: "Два балансировщика нагрузки, один активный, другой пассивный. При отказе активного, пассивный автоматически занимает его место.",
 	},
 	{
@@ -48,7 +63,7 @@ var components = []Component{
 		MTBF:        52560,
 		MTTR:        3,
 		Available:   0.999943,
-		Img:         "loader.svg",
+		Img:         "http://localhost:9000/failivercheck/svg/loader.svg",
 		Description: "Три балансировщика нагрузки, размещенных в разных географических регионах. Распределяют нагрузку и обеспечивают отказоустойчивость даже при выходе из строя целого региона.",
 	},
 	{
@@ -58,7 +73,7 @@ var components = []Component{
 		MTBF:        43800,
 		MTTR:        4,
 		Available:   0.999909,
-		Img:         "loader.svg",
+		Img:         "http://localhost:9000/failivercheck/svg/loader.svg",
 		Description: "Два балансировщика нагрузки, использующие VRRP (Virtual Router Redundancy Protocol) для обеспечения отказоустойчивости. Один активен, другой - в режиме ожидания.",
 	},
 	{
@@ -68,7 +83,7 @@ var components = []Component{
 		MTBF:        8760,
 		MTTR:        2,
 		Available:   0.999771,
-		Img:         "cluster.svg",
+		Img:         "http://localhost:9000/failivercheck/svg/cluster.svg",
 		Description: "Несколько веб-серверов, работающих вместе для обработки запросов. Если один сервер выходит из строя, другие продолжают работать.",
 	},
 	{
@@ -78,7 +93,7 @@ var components = []Component{
 		MTBF:        26280, // Увеличил MTBF
 		MTTR:        3,
 		Available:   0.999885,
-		Img:         "database.svg",
+		Img:         "http://localhost:9000/failivercheck/svg/database.svg",
 		Description: "Три кэширующих сервера, объединенных в кластер. Данные распределены между серверами, обеспечивая отказоустойчивость и масштабируемость.",
 	},
 	{
@@ -88,62 +103,18 @@ var components = []Component{
 		MTBF:        35040,
 		MTTR:        4,
 		Available:   0.999886,
-		Img:         "database.svg",
+		Img:         "http://localhost:9000/failivercheck/svg/database.svg",
 		Description: "Четыре сервера очереди сообщений, работающих в кластере. Обеспечивают высокую доступность и надежность доставки сообщений.",
 	},
 }
 
-var UserList = map[int][]Component{
+var AvailabilityCalculation = map[int]Calculation{
 	1: {
-		{
-			ID:          10,
-			Title:       "Очередь сообщений (кластер)",
-			Type:        "Сервис",
-			MTBF:        35040,
-			MTTR:        4,
-			Available:   0.999886,
-			Img:         "database.svg",
-			Description: "Четыре сервера очереди сообщений, работающих в кластере. Обеспечивают высокую доступность и надежность доставки сообщений.",
-		},
-		{
-			ID:          9,
-			Title:       "Кэширующий сервер (распределенный)",
-			Type:        "Сервер",
-			MTBF:        26280, // Увеличил MTBF
-			MTTR:        3,
-			Available:   0.999885, // Пересчитал Available
-			Img:         "database.svg",
-			Description: "Три кэширующих сервера, объединенных в кластер. Данные распределены между серверами, обеспечивая отказоустойчивость и масштабируемость.",
-		},
-		{
-			ID:          7,
-			Title:       "Веб-сервер (кластер)",
-			Type:        "Сервер",
-			MTBF:        8760,
-			MTTR:        2,
-			Available:   0.999771,
-			Img:         "cluster.svg",
-			Description: "Несколько веб-серверов, работающих вместе для обработки запросов. Если один сервер выходит из строя, другие продолжают работать.",
-		},
-		{
-			ID:          9,
-			Title:       "Кэширующий сервер (распределенный)",
-			Type:        "Сервер",
-			MTBF:        26280, // Увеличил MTBF
-			MTTR:        3,
-			Available:   0.999885, // Пересчитал Available
-			Img:         "database.svg",
-			Description: "Три кэширующих сервера, объединенных в кластер. Данные распределены между серверами, обеспечивая отказоустойчивость и масштабируемость.",
-		},
-		{
-			ID:          10,
-			Title:       "Очередь сообщений (кластер)",
-			Type:        "Сервис",
-			MTBF:        35040,
-			MTTR:        4,
-			Available:   0.999886,
-			Img:         "database.svg",
-			Description: "Четыре сервера очереди сообщений, работающих в кластере. Обеспечивают высокую доступность и надежность доставки сообщений.",
+		Name: "System 1",
+		Components: []CalculationToComponent{
+			{Component: components[0], ReplicationCount: 1},
+			{Component: components[1], ReplicationCount: 2},
+			{Component: components[2], ReplicationCount: 4},
 		},
 	},
 }
@@ -152,12 +123,8 @@ func NewRepository() (*Repository, error) {
 	return &Repository{}, nil
 }
 
-func (r *Repository) GetComponentsInApplication() ([]Component, error) {
-	return UserList[1], nil
-}
-func (r *Repository) PostUserList(c Component) (map[int][]Component, error) {
-	UserList[len(UserList)] = []Component{c}
-	return UserList, nil
+func (r *Repository) GetComponentsInApplication(id int) (Calculation, error) {
+	return AvailabilityCalculation[id], nil
 }
 
 // func (r *Repository) PushUserList(id int, c Component) ([]Component, error) {
