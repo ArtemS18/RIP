@@ -48,7 +48,7 @@ services:
     depends_on:
       - minio1
       - minio2
-      - minio3
+      - minio3 
       - minio4
   server:
     build: ./failiverCheck/
@@ -56,6 +56,29 @@ services:
       - "8080:8080"
     volumes:
       - ./failiverCheck:/build
+
+  postgresdb:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: db
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  adminer:
+    image: adminer:latest
+    ports:
+      - "8081:8080"
+    depends_on:
+      - postgresdb
     
 
 volumes: 
@@ -67,3 +90,4 @@ volumes:
   data3-2:
   data4-1:
   data4-2:
+  postgres_data:
