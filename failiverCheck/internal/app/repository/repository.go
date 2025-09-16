@@ -20,19 +20,15 @@ type Component struct {
 	Description string
 }
 
-// type AvailabilityCalculation struct {
-// 	ID   int
-// 	Name string
-// }
-
 type CalculationToComponent struct {
 	Component        Component
 	ReplicationCount int
 }
 
 type Calculation struct {
-	Name       string
-	Components []CalculationToComponent
+	Name          string
+	Components    []CalculationToComponent
+	AvailableCalc float32
 }
 
 var components = []Component{
@@ -110,7 +106,8 @@ var components = []Component{
 
 var AvailabilityCalculation = map[int]Calculation{
 	1: {
-		Name: "System 1",
+		Name:          "System 1",
+		AvailableCalc: 98.1,
 		Components: []CalculationToComponent{
 			{Component: components[0], ReplicationCount: 1},
 			{Component: components[1], ReplicationCount: 2},

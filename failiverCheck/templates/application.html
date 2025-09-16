@@ -29,12 +29,12 @@
                             <span id="img-icon">
                                 <img src= "{{.Component.Img}}" alt="icon"/>
                             </span>
-                            <span > <a href="/components/{{.Component.ID}}">{{ .Title }}</a></span>
+                            <span > <a href="/components/{{.Component.ID}}">{{ .Component.Title }}</a></span>
                         </div>
                         <div class="left-container">
                             <div> 
                                 <div class="count-replication"> Кол-во репликаций</div>
-                                <input type="number" name="count" placeholder="шт." value="{.ReplicationCount}">
+                                <input type="number" name="count" placeholder="шт." value="{{.ReplicationCount}}">
                             </div>
                             <a href="" class="button delete trash"> <img src="http://localhost:9000/failivercheck/svg/trash.svg"></img></a>
                         </div>
@@ -43,7 +43,7 @@
             </div>
              <h1> Название системы</h1>
                 <div class="form-containeer">
-                    <input type="text" name="name" placeholder="Придумайте название" value=".name">
+                    <input type="text" name="name" placeholder="Придумайте название" value="{{.name}}">
                     <button type="submit" class="button add"> Сохранить</button>
                 </div>
             <div class="buttons">
