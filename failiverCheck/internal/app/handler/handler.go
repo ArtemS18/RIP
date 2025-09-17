@@ -1,13 +1,14 @@
 package handler
 
 import (
+	"failiverCheck/internal/app/ds"
 	"failiverCheck/internal/app/repository"
+	"fmt"
 	"net/http"
 	"strconv"
 
-	"github.com/sirupsen/logrus"
-
 	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
 )
 
 type Handler struct {
@@ -15,7 +16,7 @@ type Handler struct {
 }
 
 type TemplateData struct {
-	Components   []repository.Component
+	Components   []ds.Component
 	CountQuery   int
 	CurrentCount int
 	SearchQuery  string
@@ -25,11 +26,30 @@ func NewHandler(r *repository.Repository) *Handler {
 	return &Handler{r}
 }
 
+func (h *Handler) RegisterHandlers(r *gin.Engine) {
+	r.GET("/components", h.GetComponents)
+	r.GET("/components/:id", h.GetComponent)
+	r.GET("/availability_calc", h.GetApplication)
+}
+
+func (h *Handler) RegisterStatic(r *gin.Engine, path string) {
+	r.LoadHTMLGlob(fmt.Sprintf("%s/*", path))
+	r.Static("/static", "./resources")
+}
+
+func (h *Handler) errorHandler(ctx *gin.Context, errorCode int, err error) {
+	log.Error(err.Error())
+	ctx.JSON(errorCode, gin.H{
+		"status":      "error",
+		"description": err.Error(),
+	})
+
+}
 func (h *Handler) GetApplication(ctx *gin.Context) {
 
-	components, err := h.Repository.GetComponentsInApplication()
+	components, err := h.Repository.GetComponents()
 	if err != nil {
-		logrus.Error(err)
+		log.Error(err)
 	}
 
 	ctx.HTML(http.StatusOK, "application.html", gin.H{
@@ -41,12 +61,12 @@ func (h *Handler) GetComponent(ctx *gin.Context) {
 	idStr := ctx.Param("id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		logrus.Error(err)
+		log.Error(err)
 	}
 
-	order, err := h.Repository.GetComponent(id)
+	order, err := h.Repository.GetComponentById(id)
 	if err != nil {
-		logrus.Error(err)
+		log.Error(err)
 	}
 
 	ctx.HTML(http.StatusOK, "component.html", gin.H{
@@ -55,7 +75,7 @@ func (h *Handler) GetComponent(ctx *gin.Context) {
 }
 
 func (h *Handler) GetComponents(ctx *gin.Context) {
-	var orders []repository.Component
+	var orders []ds.Component
 	var err error
 
 	searchQuery := ctx.Query("search")
@@ -68,16 +88,16 @@ func (h *Handler) GetComponents(ctx *gin.Context) {
 		}
 	}
 
-	logrus.Info(searchQuery)
+	log.Info(searchQuery)
 	if searchQuery == "" {
 		orders, err = h.Repository.GetComponents()
 		if err != nil {
-			logrus.Error(err)
+			log.Error(err)
 		}
 	} else {
 		orders, err = h.Repository.GetComponentsByTitle(searchQuery)
 		if err != nil {
-			logrus.Error(err)
+			log.Error(err)
 		}
 	}
 

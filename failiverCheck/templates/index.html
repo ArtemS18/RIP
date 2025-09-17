@@ -8,7 +8,7 @@
     </header>
     <body>
         <div class="bar">
-            <a href="/hello"> FailiverCheck</a>
+            <a href="/components"> FailiverCheck</a>
             <!-- <span class="nav">
                 <a href="/hello">Компоненты</a>
                 <a href="">Заявки</a>
@@ -17,7 +17,7 @@
         </div>
         <div class="page">
             <h1> Компоненты системы</h1>
-            <form action="/hello?addComponent={{.data.CountQuery}}" method="GET">
+            <form action="/components?addComponent={{.data.CountQuery}}" method="GET">
                 <input type="text" name="search" placeholder="Найти компоненты" value="{{ .data.SearchQuery }}">
                 <button class = "button search" type="submit"><strong>Поиск</strong></button>
             </form>
@@ -29,15 +29,15 @@
                     </div>
                     <p> {{ .Title }}</p>
                     <div class="buttons">
-                        <a href="/hello?search={{$.data.SearchQuery}}&addComponent={{$.data.CountQuery}}" class="button add"> +Добавить  </a>
-                        <a href="/component/{{ .ID }}" class="button more"> Подробнее...  </a>
+                        <a href="/components?search={{$.data.SearchQuery}}&addComponent={{$.data.CountQuery}}" class="button add"> +Добавить  </a>
+                        <a href="/components/{{ .ID }}" class="button more"> Подробнее...  </a>
                     </div>
                 </div>
             {{ end }}
             </div>
         </div>
         <div class="bar-chat">
-            <a href="/order">
+            <a href="/availability_calc">
                 <img src= "http://localhost:9000/failivercheck/svg/bar-chat.svg" alt="analitics"/>
             </a>
             {{if .data.CurrentCount}}

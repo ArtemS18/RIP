@@ -11,7 +11,7 @@
 </header>
     <body>
         <div class="bar">
-            <a href="/hello"> FailiverCheck</a>
+            <a href="/components"> FailiverCheck</a>
             <!-- <span class="nav">
                 <a href="/hello">Компоненты</a>
                 <a href="">Заявки</a>
@@ -19,13 +19,6 @@
 
         </div>
         <div class="page">
-            <div class="component__name">
-                <h1>
-                <a class="nav" href="/hello">Компоненты /</a>
-                <span id="nav-name">{{ .component.Title }}</span>
-                </h1>
-               
-            </div>
             <div class="component card">
                 <span id="img-icon">
                     <img src= "http://localhost:9000/failivercheck/svg/{{.component.Img}}" alt="icon"/>
@@ -42,7 +35,6 @@
                     <ul id="component-body">
                         <li>Tип:</li> <div>{{.component.Type}} </div>
                         <li>Доступность:</li> <div>{{.component.Available}}% </div>
-                        <!-- <li>Кол-во реплик: </li> <div>{{.component.Replication}} шт.</div> -->
                         <li>MTBF*:</li> <div>{{.component.MTBF}} ч.</div>
                         <li>MTTR**:</li> <div>{{.component.MTTR}} ч.</div>
                     </ul>

@@ -24,6 +24,7 @@ func NewConfig() (*Config, error) {
 	viper.AddConfigPath("config")
 	viper.AddConfigPath(".")
 	viper.SetConfigType("toml")
+	viper.WatchConfig()
 
 	err := viper.ReadInConfig()
 	if err != nil {
