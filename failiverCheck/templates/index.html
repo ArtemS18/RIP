@@ -17,7 +17,7 @@
         </div>
         <div class="page">
             <h1> Компоненты системы</h1>
-            <form action="/components?addComponent={{.data.CountQuery}}" method="GET">
+            <form action="/components" method="GET">
                 <input type="text" name="search" placeholder="Найти компоненты" value="{{ .data.SearchQuery }}">
                 <button class = "button search" type="submit"><strong>Поиск</strong></button>
             </form>
@@ -29,7 +29,13 @@
                     </div>
                     <p> {{ .Title }}</p>
                     <div class="buttons">
-                        <a href="/components?search={{$.data.SearchQuery}}&addComponent={{$.data.CountQuery}}" class="button add"> +Добавить  </a>
+                        <form action="/components/" method="POST" class="add-form">
+                            <input type="hidden" style="height: 0px;" name="component_id" value="{{.ID}}">
+                            <input type="hidden" style="height: 0px;" name="search" value="{{ $.data.SearchQuery }}">
+                            <button type="submit"  class="button add">
+                                +Добавить
+                            </button>
+                        </form>
                         <a href="/components/{{ .ID }}" class="button more"> Подробнее...  </a>
                     </div>
                 </div>
@@ -37,7 +43,7 @@
             </div>
         </div>
         <div class="bar-chat">
-            <a href="/availability_calc">
+            <a href="/availability_calc/{{.data.SystemCalcId}}">
                 <img src= "http://localhost:9000/failivercheck/svg/bar-chat.svg" alt="analitics"/>
             </a>
             {{if .data.CurrentCount}}

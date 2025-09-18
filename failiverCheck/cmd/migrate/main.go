@@ -20,6 +20,7 @@ func main() {
 		&ds.Component{},
 		&ds.User{},
 		&ds.SystemCalculation{},
+		&ds.ComponentsToSystemCalc{},
 	)
 	if err != nil {
 		panic("cant migrate db")

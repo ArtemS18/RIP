@@ -16,7 +16,7 @@ const (
 )
 
 func (en *enumStatus) Scan(value interface{}) error {
-	v, ok := value.([]byte)
+	v, ok := value.(string)
 	if !ok {
 		return fmt.Errorf("invalid type for enumStatus: %T", value)
 	}

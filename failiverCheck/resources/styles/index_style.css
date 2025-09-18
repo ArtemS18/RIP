@@ -132,6 +132,7 @@ p{
     font-size: 0.6em;
     text-decoration: none;
     transition: 0.5s ease;
+    height: fit-content;
 }
 
 .button.search{
@@ -141,6 +142,7 @@ p{
     border-top-right-radius: 25px;
     font-size: large;
     border-bottom-right-radius: 25px;
+    height: auto;
 
 }
 
@@ -213,4 +215,8 @@ input:focus {
 
 .bar-chat img:hover{
     transform: scale(1.1);
+}
+
+.add-form{
+    display: block;
 }
